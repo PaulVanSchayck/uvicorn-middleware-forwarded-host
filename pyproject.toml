@@ -1,0 +1,42 @@
+[project]
+name = "uvicorn-middleware-forwarded-host"
+description = "Uvicorn (ASGI, FastAPI) Middleware for handling the non-standard `X-Forwarded-Host` and `X-Forwarded-Prefix` header."
+readme = "README.md"
+requires-python = ">=3.8"
+license = {file = "LICENSE"}
+authors = [
+    {name = "KNMI Data Platform Team", email = "opendata@knmi.nl"},
+]
+keywords = ["asgi", "uvicorn", "middleware"]
+classifiers = [
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Typing :: Typed",
+]
+version = "0.1.0"
+dependencies = ["uvicorn>=0.32.0"]
+
+[project.optional-dependencies]
+test = ["pytest", "fastapi", "httpx"]
+dev = ["pre-commit"]
+
+[project.urls]
+Source = "https://github.com/knmi/uvicorn-middleware-forwarded-host"
+
+[build-system]
+requires = ["flit>=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.module]
+name = "uvicorn_middleware_forwarded_host"
+
+[tool.flit.sdist]
+exclude = [
+    "test/",
+    ".github/",
+]

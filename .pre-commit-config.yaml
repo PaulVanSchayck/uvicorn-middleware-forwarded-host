@@ -1,0 +1,52 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      # Formatting
+      - id: end-of-file-fixer  # Makes sure files end in a newline and only a newline.
+      - id: trailing-whitespace  # Trims trailing whitespace.
+      # Checks
+      - id: check-merge-conflict  # Check for files that contain merge conflict strings.
+      - id: check-shebang-scripts-are-executable  # Checks that scripts with shebangs are executable.
+
+  # reorder-python-imports ~ sort python imports
+  - repo: https://github.com/asottile/reorder_python_imports
+    rev: v3.14.0
+    hooks:
+      - id: reorder-python-imports
+
+  # black ~ Formats Python code
+  - repo: https://github.com/psf/black
+    rev: 25.1.0
+    hooks:
+      - id: black
+        args: [
+          '--line-length=120'
+        ]
+
+  # flake8 ~ Enforces the Python PEP8 style guide
+  # Ignore the unused imports (F401) for the __init__ files, the imports are not always used inside the file,
+  # but used to setup how other files can import it in a more convenient way.
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.1.1
+    hooks:
+      - id: flake8
+        args: [
+          '--ignore=E203,W503',
+          '--max-line-length=120',
+          '--per-file-ignores=__init__.py:F401'
+        ]
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.15.0
+    hooks:
+      - id: mypy
+        # No reason to run if only tests have changed. They intentionally break typing.
+        exclude: test/
+        # Pass mypy the entire folder because a change in one file can break others.
+        args: [--config-file=pyproject.toml, src/]
+        # Don't pass it the individual filenames because it is already doing the whole folder.
+        pass_filenames: false
+        additional_dependencies:
+          - uvicorn
+          - starlette
