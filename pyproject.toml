@@ -22,7 +22,7 @@ version = "0.1.0"
 dependencies = ["uvicorn>=0.32.0"]
 
 [project.optional-dependencies]
-test = ["pytest", "fastapi", "httpx"]
+test = ["pytest", "pytest-cov", "fastapi", "httpx"]
 dev = ["pre-commit"]
 
 [project.urls]
